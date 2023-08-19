@@ -1,8 +1,9 @@
-import db from "~/db"
-import { camera } from "~/db/schema"
+import { Button } from "~/components"
 
-export default async function Home() {
-  console.log(await db.select().from(camera))
-
-  return <div>Home</div>
+export default function Home() {
+  return (
+    <div>
+      <Button>Click me!</Button>
+    </div>
+  )
 }
