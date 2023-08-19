@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1692439918971,
+      "tag": "0000_unusual_ender_wiggin",
+      "breakpoints": true
+    }
+  ]
+}
