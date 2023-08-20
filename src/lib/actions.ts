@@ -20,10 +20,7 @@ import {
 import { schemas } from "./utils"
 import db from "~/db"
 
-export async function create({
-  tableName,
-  ...data
-}: Record<string, unknown>): Promise<
+export async function create(data: Record<string, unknown>): Promise<
   | {
       success: false
       type: "table" | "input" | "unique"
@@ -33,7 +30,7 @@ export async function create({
       success: true
     }
 > {
-  const result = await validate(data, tableName as string)
+  const result = await validate(data)
 
   if (!result.success) {
     return {
@@ -50,10 +47,10 @@ export async function create({
   }
 }
 
-async function validate(
-  data: Record<string, unknown>,
-  tableName: string,
-): Promise<
+export async function validate({
+  tableName,
+  ...data
+}: Record<string, unknown>): Promise<
   | {
       success: false
       type: "table" | "input" | "unique"

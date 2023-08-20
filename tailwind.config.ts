@@ -9,6 +9,9 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require("@headlessui/tailwindcss"),
+    require("@shrutibalasa/tailwind-grid-auto-fit"),
+  ],
 }
 export default config
