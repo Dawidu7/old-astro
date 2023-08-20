@@ -155,3 +155,7 @@ export async function validate({
     table,
   }
 }
+
+export async function action(formData: FormData) {
+  console.log(formData)
+}
