@@ -21,3 +21,9 @@ export function mergeRefs<T = any>(
     })
   }
 }
+
+export function camelToTitle(string: string) {
+  return string
+    .replace(/([A-Z])/g, " $1")
+    .replace(/^./, str => str.toUpperCase())
+}
