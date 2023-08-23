@@ -4,8 +4,10 @@ import clsx from "clsx"
 import { Children, cloneElement, isValidElement, useState } from "react"
 import type { ComponentProps } from "react"
 import { twMerge } from "tailwind-merge"
+import { validate } from "~/lib/actions"
 
-type FormProps = Omit<ComponentProps<"form">, "onSubmit"> & {
+type FormProps = Omit<ComponentProps<"form">, "action" | "onSubmit"> & {
+  action?: (formData: Record<string, unknown>) => Promise<unknown>
   errors?: Record<string, string>
 }
 
@@ -21,24 +23,22 @@ export default function Form({
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    // Format form data
-    const data = Array.from(e.currentTarget.elements).reduce((acc, element) => {
-      if (!element.hasAttribute("name")) return acc
+    const elements = e.currentTarget.elements
 
-      const { name, type, value } = element as HTMLInputElement
+    const schema = getFormSchema(children)
+    const data = getFormData(elements)
 
-      return {
-        ...acc,
-        [name]:
-          type === "number"
-            ? isNaN(parseFloat(value))
-              ? undefined
-              : parseFloat(value)
-            : value,
-      }
-    }, {})
+    const result = await validate(schema, data)
 
-    console.log(data)
+    if (!result.success) {
+      return setErrors(result.issues!)
+    }
+
+    setErrors({})
+
+    if (action) {
+      await action(data)
+    }
   }
 
   return (
@@ -75,4 +75,78 @@ function getFormChildren(
 
     return child
   })
+}
+
+function getFormData(elements: HTMLFormControlsCollection) {
+  return Array.from(elements).reduce<Record<string, unknown>>(
+    (acc, element) => {
+      if (!element.hasAttribute("name")) return acc
+
+      const { inputMode, name, value } = element as HTMLInputElement
+      const parsedPlaceholder = parseFloat(value.replaceAll(",", ""))
+      const parsedValue = isNaN(parsedPlaceholder)
+        ? undefined
+        : parsedPlaceholder
+
+      if (inputMode === "numeric") {
+        return {
+          ...acc,
+          [name]: parsedValue,
+        }
+      }
+
+      const matches = name.match(/(.+?)\[(.+?)\]/)
+
+      if (!matches) {
+        return { ...acc, [name]: value }
+      }
+
+      return {
+        ...acc,
+        [matches[1]]: {
+          // @ts-expect-error
+          ...acc[matches[1]],
+          [matches[2]]: /[^0-9.,]/.test(value) ? value : parsedValue,
+        },
+      }
+    },
+    {},
+  )
+}
+
+function getFormSchema(children: React.ReactNode): Record<string, string> {
+  return Children.toArray(children).reduce((acc, child) => {
+    if (!child || !isValidElement(child)) return acc
+
+    const { props } = child as JSX.Element
+
+    if (props.role === "group") {
+      return { ...acc, ...getFormSchema(props.children) }
+    }
+
+    if (!props.name) return acc
+
+    if (props.type === "number") {
+      return { ...acc, [props.name]: "number" }
+    }
+
+    if (props.options) {
+      if (typeof props.options[0] === "string") {
+        return { ...acc, [props.name]: "string" }
+      }
+
+      return {
+        ...acc,
+        [props.name]: Object.entries(props.options[0]).reduce(
+          (obj, [key, value]) => ({
+            ...obj,
+            [key]: typeof value === "number" ? "number" : "string",
+          }),
+          {},
+        ),
+      }
+    }
+
+    return { ...acc, [props.name]: "string" }
+  }, {})
 }
