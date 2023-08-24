@@ -56,7 +56,7 @@ export default async function Option({ searchParams }: SearchParams) {
           "filter",
           "telescope",
         ]}
-        defaultValue={searchParams.type}
+        defaultValue={searchParams.type || defaultOption?.type}
       />
       <Group>
         {defaultOption && (
