@@ -39,6 +39,7 @@ export default async function FlattReduc({ id }: { id?: number }) {
         label="Times"
         name="times"
         type="number"
+        minValue={0}
         step={0.01}
         defaultValue={defaultFlattReduc?.times.toString()}
       />

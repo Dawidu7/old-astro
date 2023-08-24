@@ -1,0 +1,325 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "id": "20cadfe7-7b3c-4de0-b33e-68c8ea85b011",
+  "prevId": "1d281466-60c6-432f-915f-bb991252f44e",
+  "tables": {
+    "admin": {
+      "name": "admin",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "password": {
+          "name": "password",
+          "type": "varchar(60)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "admin_id": {
+          "name": "admin_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "camera": {
+      "name": "camera",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "resolutionX": {
+          "name": "resolutionX",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "resolutionY": {
+          "name": "resolutionY",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "matrixX": {
+          "name": "matrixX",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "matrixY": {
+          "name": "matrixY",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "pixelSize": {
+          "name": "pixelSize",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "camera_id": {
+          "name": "camera_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {
+        "camera_name_unique": {
+          "name": "camera_name_unique",
+          "columns": [
+            "name"
+          ]
+        }
+      }
+    },
+    "catalog": {
+      "name": "catalog",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "value": {
+          "name": "value",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "catalog_id": {
+          "name": "catalog_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {
+        "catalog_name_unique": {
+          "name": "catalog_name_unique",
+          "columns": [
+            "name"
+          ]
+        },
+        "catalog_value_unique": {
+          "name": "catalog_value_unique",
+          "columns": [
+            "value"
+          ]
+        }
+      }
+    },
+    "flattReduc": {
+      "name": "flattReduc",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "times": {
+          "name": "times",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "flattReduc_id": {
+          "name": "flattReduc_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {
+        "flattReduc_name_unique": {
+          "name": "flattReduc_name_unique",
+          "columns": [
+            "name"
+          ]
+        },
+        "flattReduc_times_unique": {
+          "name": "flattReduc_times_unique",
+          "columns": [
+            "times"
+          ]
+        }
+      }
+    },
+    "option": {
+      "name": "option",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "type": {
+          "name": "type",
+          "type": "enum('angle','camera','catalog','constellation','filter','telescope')",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "option_id": {
+          "name": "option_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {
+        "option_name_unique": {
+          "name": "option_name_unique",
+          "columns": [
+            "name"
+          ]
+        },
+        "option_name_type": {
+          "name": "option_name_type",
+          "columns": [
+            "name",
+            "type"
+          ]
+        }
+      }
+    },
+    "telescope": {
+      "name": "telescope",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "focalLength": {
+          "name": "focalLength",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "diameter": {
+          "name": "diameter",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "focalRatio": {
+          "name": "focalRatio",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "telescope_id": {
+          "name": "telescope_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {
+        "telescope_name_unique": {
+          "name": "telescope_name_unique",
+          "columns": [
+            "name"
+          ]
+        }
+      }
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

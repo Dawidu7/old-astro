@@ -47,7 +47,7 @@ export const option = mysqlTable(
       "constellation",
       "filter",
       "telescope",
-    ]),
+    ]).notNull(),
   },
   t => ({
     unq: unique("option_name_type").on(t.name, t.type),
@@ -57,7 +57,7 @@ export const option = mysqlTable(
 export const telescope = mysqlTable("telescope", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 255 }).notNull().unique(),
-  focalLength: int("focalLength"),
-  diameter: int("diameter"),
-  focalRatio: float("focalRatio"),
+  focalLength: int("focalLength").notNull(),
+  diameter: int("diameter").notNull(),
+  focalRatio: float("focalRatio").notNull(),
 })
