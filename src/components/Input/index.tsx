@@ -23,7 +23,7 @@ export default forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
     return (
       <div
         className={clsx(
-          "relative",
+          "relative z-10",
           type !== "date" && "mt-4 pt-1",
           props.isDisabled && "opacity-40",
         )}
@@ -39,7 +39,7 @@ export default forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
           <TextArea ref={forwardedRef} {...props} />
         ) : (
           // @ts-expect-error ref
-          <Text ref={forwardedRef} {...props} />
+          <Text ref={forwardedRef} {...props} type={type} />
         )}
       </div>
     )
