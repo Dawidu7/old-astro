@@ -1,5 +1,4 @@
 import { eq } from "drizzle-orm"
-import type { InferModel } from "drizzle-orm"
 import { Button, Form, Group, Input, Modal } from ".."
 import db from "~/db"
 import { camera } from "~/db/schema"
