@@ -7,5 +7,5 @@ type Params = {
 }
 
 type SearchParams = {
-  searchParams: Record<string, string>
+  searchParams: Record<string, string | undefined>
 }

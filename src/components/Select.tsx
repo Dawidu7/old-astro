@@ -64,6 +64,7 @@ export default function Select<
               <span
                 className={twMerge(
                   clsx(
+                    "capitalize",
                     open || selected ? "text-white" : "text-zinc-400",
                     errorMessage && "text-red-600",
                   ),
@@ -87,7 +88,7 @@ export default function Select<
               <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-y-scroll rounded bg-stone-800 shadow-md shadow-black outline-none">
                 {options.map((option, i) => (
                   <Listbox.Option
-                    className="px-1.5 ui-selected:bg-stone-900 ui-selected:font-semibold ui-active:bg-stone-900 ui-not-selected:ui-active:cursor-pointer"
+                    className="px-1.5 capitalize ui-selected:bg-stone-900 ui-selected:font-semibold ui-active:bg-stone-900 ui-not-selected:ui-active:cursor-pointer"
                     key={i}
                     value={option}
                   >
