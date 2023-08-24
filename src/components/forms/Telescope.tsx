@@ -1,4 +1,5 @@
 import { eq } from "drizzle-orm"
+import { revalidatePath } from "next/cache"
 import { Button, Form, Group, Input, Modal } from ".."
 import db from "~/db"
 import { telescope } from "~/db/schema"
@@ -18,6 +19,8 @@ export default async function Telescope({ searchParams }: SearchParams) {
 
     // @ts-expect-error
     await db.insert(telescope).values(formData)
+
+    revalidatePath("/dashboard")
   }
 
   async function update(formData: Record<string, unknown>) {
@@ -27,6 +30,8 @@ export default async function Telescope({ searchParams }: SearchParams) {
       .update(telescope)
       .set(formData)
       .where(eq(telescope.id, defaultTelescope?.id || 0))
+
+    revalidatePath("/dashboard")
   }
 
   async function remove() {
@@ -35,6 +40,8 @@ export default async function Telescope({ searchParams }: SearchParams) {
     await db
       .delete(telescope)
       .where(eq(telescope.id, defaultTelescope?.id || 0))
+
+    revalidatePath("/dashboard")
   }
 
   return (

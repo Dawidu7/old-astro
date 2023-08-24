@@ -64,6 +64,12 @@ function getFormChildren(
     const { props } = child as JSX.Element
 
     if (props.name) {
+      if (props.options) {
+        return cloneElement(child as JSX.Element, {
+          errorMessage: errors[props.name] || undefined,
+        })
+      }
+
       return cloneElement(child as JSX.Element, {
         errorMessage: errors[props.name] || undefined,
         isDisabled: isLoading || undefined,

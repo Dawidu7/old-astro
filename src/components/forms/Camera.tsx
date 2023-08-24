@@ -1,4 +1,5 @@
 import { eq } from "drizzle-orm"
+import { revalidatePath } from "next/cache"
 import { Button, Form, Group, Input, Modal } from ".."
 import db from "~/db"
 import { camera } from "~/db/schema"
@@ -18,6 +19,8 @@ export default async function Camera({ searchParams }: SearchParams) {
 
     // @ts-expect-error
     await db.insert(camera).values(formData)
+
+    revalidatePath("/dashboard")
   }
 
   async function update(formData: Record<string, unknown>) {
@@ -27,12 +30,16 @@ export default async function Camera({ searchParams }: SearchParams) {
       .update(camera)
       .set(formData)
       .where(eq(camera.id, defaultCamera?.id || 0))
+
+    revalidatePath("/dashboard")
   }
 
   async function remove() {
     "use server"
 
     await db.delete(camera).where(eq(camera.id, defaultCamera?.id || 0))
+
+    revalidatePath("/dashboard")
   }
 
   return (

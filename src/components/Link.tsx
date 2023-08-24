@@ -25,7 +25,7 @@ export default function Link({
     <NextLink
       className={twMerge(
         clsx(
-          "text-zinc-400 outline-none transition duration-200 data-[hovered]:text-white",
+          "text-zinc-400 outline-none transition-all duration-200 data-[hovered]:text-white",
           className,
         ),
       )}

@@ -1,4 +1,5 @@
 import { eq } from "drizzle-orm"
+import { revalidatePath } from "next/cache"
 import { Button, Form, Group, Input, Modal, Select } from ".."
 import db from "~/db"
 import { option } from "~/db/schema"
@@ -18,6 +19,8 @@ export default async function Option({ searchParams }: SearchParams) {
 
     // @ts-expect-error
     await db.insert(option).values(formData)
+
+    revalidatePath("/dashboard")
   }
 
   async function update(formData: Record<string, unknown>) {
@@ -27,12 +30,16 @@ export default async function Option({ searchParams }: SearchParams) {
       .update(option)
       .set(formData)
       .where(eq(option.id, defaultOption?.id || 0))
+
+    revalidatePath("/dashboard")
   }
 
   async function remove() {
     "use server"
 
     await db.delete(option).where(eq(option.id, defaultOption?.id || 0))
+
+    revalidatePath("/dashboard")
   }
 
   return (
