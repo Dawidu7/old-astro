@@ -1,13 +1,8 @@
 "use server"
 
+import type { AnyMySqlTable } from "drizzle-orm/mysql-core"
 import { safeParse } from "valibot"
 import { createSchema } from "./utils"
-
-export async function create() {}
-
-export async function remove() {}
-
-export async function update() {}
 
 export async function validate(
   schemaTemplate: Record<string, string>,

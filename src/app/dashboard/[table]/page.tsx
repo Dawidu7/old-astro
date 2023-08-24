@@ -1,18 +1,12 @@
 import { Button, Form, Input } from "~/components"
-import { schemas } from "~/lib/utils"
+import forms from "~/components/forms"
 
-export default function Table({ params }: Params) {
-  const table = schemas[params.table as keyof typeof schemas]
+export default function Table({ params, searchParams }: Params & SearchParams) {
+  const Form = forms[params.table as keyof typeof forms]
 
-  if (!table) {
-    return "No table found."
+  if (!Form) {
+    return "No form found."
   }
 
-  return (
-    <Form>
-      <Button className="capitalize" type="submit">
-        Add {params.table}
-      </Button>
-    </Form>
-  )
+  return <Form id={parseInt(searchParams.id)} />
 }

@@ -1,7 +1,7 @@
 "use client"
 
 import clsx from "clsx"
-import { Children, cloneElement, isValidElement, useState } from "react"
+import { Children, cloneElement, isValidElement, useRef, useState } from "react"
 import type { ComponentProps } from "react"
 import { twMerge } from "tailwind-merge"
 import { validate } from "~/lib/actions"
@@ -19,14 +19,12 @@ export default function Form({
   ...props
 }: FormProps) {
   const [errors, setErrors] = useState(baseErrors || {})
+  const [isLoading, setLoading] = useState(false)
+  const formRef = useRef<HTMLFormElement>(null)
+  const schema = getFormSchema(children)
 
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-
-    const elements = e.currentTarget.elements
-
-    const schema = getFormSchema(children)
-    const data = getFormData(elements)
+  async function preAction() {
+    const data = getFormData(formRef.current?.elements!)
 
     const result = await validate(schema, data)
 
@@ -37,17 +35,20 @@ export default function Form({
     setErrors({})
 
     if (action) {
+      setLoading(true)
       await action(data)
+      setLoading(false)
     }
   }
 
   return (
     <form
+      action={preAction}
       className={twMerge(clsx("flex flex-col gap-4", className))}
-      onSubmit={onSubmit}
+      ref={formRef}
       {...props}
     >
-      {getFormChildren(children, errors)}
+      {getFormChildren(children, errors, isLoading)}
     </form>
   )
 }
@@ -55,6 +56,7 @@ export default function Form({
 function getFormChildren(
   children: React.ReactNode,
   errors: Record<string, string>,
+  isLoading: boolean,
 ): React.ReactNode {
   return Children.map(children, child => {
     if (!child || !isValidElement(child)) return child
@@ -64,12 +66,13 @@ function getFormChildren(
     if (props.name) {
       return cloneElement(child as JSX.Element, {
         errorMessage: errors[props.name] || undefined,
+        isDisabled: isLoading || undefined,
       })
     }
 
     if (props.role === "group") {
       return cloneElement(child as JSX.Element, {
-        children: getFormChildren(props.children, errors),
+        children: getFormChildren(props.children, errors, isLoading),
       })
     }
 

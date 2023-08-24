@@ -27,7 +27,7 @@ export default function Group({
           isValidElement(child) && (
             <>
               {cloneElement(child as JSX.Element, {
-                groupstyle: "flex-1",
+                className: "flex-1",
               })}
               {separator && i < count - 1 && (
                 <span className="text-xl">{separator}</span>

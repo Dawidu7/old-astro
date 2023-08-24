@@ -21,7 +21,13 @@ type InputProps = {
 export default forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
   function Input({ type = "text", ...props }, forwardedRef) {
     return (
-      <div className={clsx("relative", type !== "date" && "mt-4 pt-1")}>
+      <div
+        className={clsx(
+          "relative",
+          type !== "date" && "mt-4 pt-1",
+          props.isDisabled && "opacity-40",
+        )}
+      >
         {type === "date" ? (
           // @ts-expect-error
           <Date {...props} />

@@ -5,3 +5,7 @@ type Children = {
 type Params = {
   params: Record<string, string>
 }
+
+type SearchParams = {
+  searchParams: Record<string, string>
+}
