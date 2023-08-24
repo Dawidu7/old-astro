@@ -55,6 +55,7 @@ export default async function Camera({ id }: { id?: number }) {
           name="matrixX"
           type="number"
           minValue={0}
+          step={0.01}
           defaultValue={defaultCamera?.matrixX.toString()}
         />
         <Input
@@ -62,6 +63,7 @@ export default async function Camera({ id }: { id?: number }) {
           name="matrixY"
           type="number"
           minValue={0}
+          step={0.01}
           defaultValue={defaultCamera?.matrixY.toString()}
         />
       </Group>
@@ -70,6 +72,7 @@ export default async function Camera({ id }: { id?: number }) {
         name="pixelSize"
         type="number"
         minValue={0}
+        step={0.01}
         defaultValue={defaultCamera?.pixelSize.toString()}
       />
       <Group>
