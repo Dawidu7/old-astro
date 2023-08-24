@@ -3,9 +3,14 @@ import { Button, Form, Group, Input, Modal } from ".."
 import db from "~/db"
 import { camera } from "~/db/schema"
 
-export default async function Camera({ id }: { id?: number }) {
-  const defaultCamera = id
-    ? (await db.select().from(camera).where(eq(camera.id, id)))[0]
+export default async function Camera({ searchParams }: SearchParams) {
+  const defaultCamera = searchParams.id
+    ? (
+        await db
+          .select()
+          .from(camera)
+          .where(eq(camera.id, parseInt(searchParams.id)))
+      )[0]
     : null
 
   async function create(formData: Record<string, unknown>) {

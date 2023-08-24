@@ -3,9 +3,14 @@ import { Button, Form, Group, Input, Modal } from ".."
 import db from "~/db"
 import { telescope } from "~/db/schema"
 
-export default async function Telescope({ id }: { id?: number }) {
-  const defaultTelescope = id
-    ? (await db.select().from(telescope).where(eq(telescope.id, id)))[0]
+export default async function Telescope({ searchParams }: SearchParams) {
+  const defaultTelescope = searchParams.id
+    ? (
+        await db
+          .select()
+          .from(telescope)
+          .where(eq(telescope.id, parseInt(searchParams.id)))
+      )[0]
     : null
 
   async function create(formData: Record<string, unknown>) {

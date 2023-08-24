@@ -3,9 +3,14 @@ import { Button, Form, Group, Input, Modal } from ".."
 import db from "~/db"
 import { catalog } from "~/db/schema"
 
-export default async function Catalog({ id }: { id?: number }) {
-  const defaultCatalog = id
-    ? (await db.select().from(catalog).where(eq(catalog.id, id)))[0]
+export default async function Catalog({ searchParams }: SearchParams) {
+  const defaultCatalog = searchParams.id
+    ? (
+        await db
+          .select()
+          .from(catalog)
+          .where(eq(catalog.id, parseInt(searchParams.id)))
+      )[0]
     : null
 
   async function create(formData: Record<string, unknown>) {

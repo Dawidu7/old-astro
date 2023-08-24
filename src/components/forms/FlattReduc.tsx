@@ -3,9 +3,14 @@ import { Button, Form, Group, Input, Modal } from ".."
 import db from "~/db"
 import { flattReduc } from "~/db/schema"
 
-export default async function FlattReduc({ id }: { id?: number }) {
-  const defaultFlattReduc = id
-    ? (await db.select().from(flattReduc).where(eq(flattReduc.id, id)))[0]
+export default async function FlattReduc({ searchParams }: SearchParams) {
+  const defaultFlattReduc = searchParams.id
+    ? (
+        await db
+          .select()
+          .from(flattReduc)
+          .where(eq(flattReduc.id, parseInt(searchParams.id)))
+      )[0]
     : null
 
   async function create(formData: Record<string, unknown>) {

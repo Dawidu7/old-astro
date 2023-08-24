@@ -8,5 +8,5 @@ export default function Table({ params, searchParams }: Params & SearchParams) {
     return "No form found."
   }
 
-  return <Form id={parseInt(searchParams.id)} />
+  return <Form searchParams={searchParams} />
 }
