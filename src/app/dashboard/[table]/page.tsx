@@ -1,4 +1,3 @@
-import { Button, Form, Input } from "~/components"
 import forms from "~/components/forms"
 
 export default function Table({ params, searchParams }: Params & SearchParams) {
