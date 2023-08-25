@@ -14,10 +14,16 @@ export function mergeRefs<T = any>(
   }
 }
 
-export function camelToTitle(string: string) {
-  return string
-    .replace(/([A-Z])/g, " $1")
-    .replace(/^./, str => str.toUpperCase())
+export function filterObject(
+  obj: Record<string, any>,
+  keys: string[],
+  negate?: boolean,
+) {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([key]) =>
+      negate ? !keys.includes(key) : keys.includes(key),
+    ),
+  )
 }
 
 export function createSchema(template: Record<string, string>) {

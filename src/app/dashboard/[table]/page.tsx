@@ -1,3 +1,4 @@
+import { Separator } from "~/components"
 import forms from "~/components/forms"
 
 export default function Table({ params, searchParams }: Params & SearchParams) {
@@ -7,5 +8,13 @@ export default function Table({ params, searchParams }: Params & SearchParams) {
     return "No form found."
   }
 
-  return <Form searchParams={searchParams} />
+  return (
+    <div className="mx-auto space-y-2">
+      <h3 className="text-3xl font-semibold capitalize">
+        Create {params.table}
+      </h3>
+      <Separator />
+      <Form searchParams={searchParams} />
+    </div>
+  )
 }

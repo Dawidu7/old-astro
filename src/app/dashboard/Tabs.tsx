@@ -9,12 +9,12 @@ export default function Tabs() {
 
   return (
     <nav className="min-w-[95px]">
-      <ul className="space-y-4">
+      <ul className="space-y-4 capitalize">
         {["calculator", "generator", "planner"].map(link => (
           <li key={link}>
             <Link
               className={clsx(
-                "capitalize transition-all",
+                "transition-all",
                 searchParams?.get("app") === link
                   ? "border-l pl-2 font-semibold text-white"
                   : "border-none",
