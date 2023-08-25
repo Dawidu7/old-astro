@@ -2,6 +2,7 @@
 
 import clsx from "clsx"
 import { useSearchParams } from "next/navigation"
+import PasswordModal from "./PasswordModal"
 import { Link } from "~/components"
 
 export default function Tabs() {
@@ -25,6 +26,9 @@ export default function Tabs() {
             </Link>
           </li>
         ))}
+        <li>
+          <PasswordModal />
+        </li>
       </ul>
     </nav>
   )

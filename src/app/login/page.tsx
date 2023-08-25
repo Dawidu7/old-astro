@@ -4,8 +4,6 @@ import { signIn } from "next-auth/react"
 import { Box, Button, Form, Input } from "~/components"
 
 async function action(formData: Record<string, unknown>) {
-  console.log(formData.password)
-
   signIn("credentials", {
     password: formData.password,
     callbackUrl: "/dashboard",
