@@ -61,7 +61,7 @@ function getFormChildren(
   return Children.map(children, child => {
     if (!child || !isValidElement(child)) return child
 
-    const { props } = child as JSX.Element
+    const { props, type } = child as JSX.Element
 
     if (props.name) {
       if (props.options) {
@@ -76,7 +76,7 @@ function getFormChildren(
       })
     }
 
-    if (props.role === "group") {
+    if (type.name === "Group" || props.role === "group") {
       return cloneElement(child as JSX.Element, {
         children: getFormChildren(props.children, errors, isLoading),
       })
@@ -127,9 +127,9 @@ function getFormSchema(children: React.ReactNode): Record<string, string> {
   return Children.toArray(children).reduce((acc, child) => {
     if (!child || !isValidElement(child)) return acc
 
-    const { props } = child as JSX.Element
+    const { props, type } = child as JSX.Element
 
-    if (props.role === "group") {
+    if (type.name === "Group" || props.role === "group") {
       return { ...acc, ...getFormSchema(props.children) }
     }
 

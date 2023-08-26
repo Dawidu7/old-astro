@@ -2,7 +2,7 @@
 
 import clsx from "clsx"
 import { useRouter } from "next/navigation"
-import { Link, Input, Searchbar } from "~/components"
+import { Link, Searchbar } from "~/components"
 
 export default function Filters({
   tables,

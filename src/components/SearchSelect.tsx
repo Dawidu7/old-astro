@@ -1,7 +1,7 @@
 "use client"
 
 import clsx from "clsx"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import type { ComponentProps } from "react"
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai"
 import { twMerge } from "tailwind-merge"
@@ -14,16 +14,15 @@ type SearchSelectProps<T> = ComponentProps<typeof Combobox> & {
   errorMessage?: React.ReactNode
 }
 
-export default function SearchSelect<
-  T extends string | { id: number; name: string },
->({
+export default function SearchSelect<T extends string | { name: string }>({
   defaultValue,
   errorMessage,
   label,
   options,
+  onChange,
   ...props
 }: SearchSelectProps<T>) {
-  const [selected, setSelected] = useState<T | null>(null)
+  const [selected, setSelected] = useState<T | null>(defaultValue || null)
   const [query, setQuery] = useState("")
 
   const filteredOptions =
@@ -35,16 +34,26 @@ export default function SearchSelect<
         )
       : options
 
+  function handleChange(value: T) {
+    setSelected(value)
+
+    if (typeof onChange === "function") {
+      onChange(value)
+    }
+  }
+
+  useEffect(() => setSelected(defaultValue || null), [defaultValue])
+
   return (
     <div className="relative mt-5">
-      <Combobox value={selected} onChange={setSelected} {...props}>
+      <Combobox {...props} value={selected} onChange={handleChange}>
         {({ open }) => (
           <>
             <Combobox.Button className="w-full">
               <Combobox.Input
                 className={twMerge(
                   clsx(
-                    "peer w-full border-b bg-inherit outline-none transition duration-300 ui-focus-visible:text-white",
+                    "peer z-10 w-full border-b bg-inherit outline-none transition duration-300 ui-focus-visible:text-white",
                     errorMessage
                       ? "border-red-600 text-red-600"
                       : "border-zinc-400 ui-focus-visible:border-white",
@@ -59,7 +68,7 @@ export default function SearchSelect<
               <Combobox.Label
                 className={twMerge(
                   clsx(
-                    "absolute left-0 -z-10 -translate-y-5 text-sm transition-all duration-300",
+                    "absolute left-0 -translate-y-5 text-sm capitalize transition-all duration-300",
                     "peer-focus-visible:-translate-y-5 peer-focus-visible:text-sm",
                     "peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-lg",
                     errorMessage

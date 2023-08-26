@@ -1,3 +1,4 @@
+import type { InferModel } from "drizzle-orm"
 import {
   int,
   float,
@@ -61,3 +62,9 @@ export const telescope = mysqlTable("telescope", {
   diameter: int("diameter").notNull(),
   focalRatio: float("focalRatio").notNull(),
 })
+
+export type Camera = InferModel<typeof camera>
+export type Catalog = InferModel<typeof catalog>
+export type FlattReduc = InferModel<typeof flattReduc>
+export type Option = InferModel<typeof option>
+export type Telescope = InferModel<typeof telescope>

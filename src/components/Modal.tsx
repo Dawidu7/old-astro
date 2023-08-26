@@ -69,7 +69,7 @@ export default function Modal({ children, full, title, trigger }: ModalProps) {
                 <Dialog.Panel className="w-fit max-w-5xl rounded-lg bg-zinc-800 2xl:max-w-7xl">
                   <Dialog.Title
                     className={clsx(
-                      "flex items-center justify-between text-4xl",
+                      "flex items-center justify-between text-4xl capitalize",
                       !full && "p-4",
                     )}
                   >
