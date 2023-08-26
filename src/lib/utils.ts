@@ -26,6 +26,10 @@ export function filterObject(
   )
 }
 
+export function round(num: number, decimal = 1) {
+  return Math.round(num * 10 ** decimal) / 10 ** decimal
+}
+
 export function createSchema(template: Record<string, string>) {
   return object(
     Object.entries(template).reduce((acc, [key, value]) => {
