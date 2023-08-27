@@ -16,6 +16,8 @@ export default function Component({
     const values = (formData.numbers as string).split(" ")
 
     values.forEach(value => {
+      if (isInvalid(value)) return
+
       if (!value.includes("-")) {
         setDSs(prev => [
           ...prev,
@@ -84,4 +86,17 @@ export default function Component({
       </Box>
     </div>
   )
+}
+
+function isInvalid(input: string) {
+  if (!input.includes("-")) {
+    return !input.match(/^[0-9]+$/)
+  }
+
+  const split = input.split("-")
+
+  if (split.some(value => !value.match(/^[0-9]+$/))) return true
+  if (Number(split[0]) >= Number(split[1])) return true
+
+  return false
 }
