@@ -62,5 +62,5 @@ function getValue(value: string) {
     return number("Must be a number.", [minValue(0, "Must be >= 0.")])
   }
 
-  return string([minLength(2, "Must be >= 2 characters long.")])
+  return string([minLength(1, "Must be >= 1 characters long.")])
 }

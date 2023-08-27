@@ -82,7 +82,7 @@ export default function SearchSelect<T extends string | { name: string }>({
               <span
                 className={twMerge(
                   clsx(
-                    "absolute bottom-1 right-0 transition duration-300",
+                    "absolute right-0 top-1 transition duration-300",
                     open ? "text-white" : "text-zinc-400",
                   ),
                 )}
