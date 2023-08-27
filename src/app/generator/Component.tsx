@@ -1,7 +1,16 @@
 "use client"
 
 import { useRef, useState } from "react"
-import { Box, Button, Form, Input, SearchSelect, Separator } from "~/components"
+import {
+  Box,
+  Button,
+  Form,
+  Group,
+  Input,
+  SearchSelect,
+  Separator,
+} from "~/components"
+import { saveFile } from "~/lib/utils"
 
 export default function Component({
   catalogs,
@@ -44,6 +53,28 @@ export default function Component({
     })
   }
 
+  function save() {
+    if (DSs.length === 0) return
+
+    saveFile(
+      [
+        "SkySafariObservingListVersion=3.0\n",
+        "SortedBy=Default Order",
+        ...DSs.map(({ id, name }) =>
+          [
+            "\n",
+            "SkyObject=BeginObject",
+            `ObjectID=${id}, -1, -1`,
+            `CatalogNumber=${name}`,
+            "EndObject=SkyObject",
+          ].join("\n"),
+        ),
+      ],
+      "generator",
+      "skylist",
+    )
+  }
+
   return (
     <div className="flex w-full justify-evenly">
       <Box className="h-min w-fit">
@@ -61,7 +92,10 @@ export default function Component({
         </Form>
       </Box>
       <Box className="h-min w-fit space-y-4">
-        <div className="flex justify-between"></div>
+        <Group>
+          <Button onPress={save}>Save</Button>
+          <Button onPress={() => setDSs([])}>Delete All</Button>
+        </Group>
         <Separator />
         <ul className="space-y-4">
           <li className="flex flex-col">

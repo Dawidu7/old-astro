@@ -1,3 +1,4 @@
+import { saveAs } from "file-saver"
 import { minLength, minValue, number, object, optional, string } from "valibot"
 
 export function mergeRefs<T = any>(
@@ -24,6 +25,12 @@ export function filterObject(
       negate ? !keys.includes(key) : keys.includes(key),
     ),
   )
+}
+
+export function saveFile(text: string[], filename: string, extension = "txt") {
+  const blob = new Blob(text, { type: "text/plain;charset=utf-8" })
+
+  saveAs(blob, `${filename}.${extension}`)
 }
 
 export function round(num: number, decimal = 1) {
