@@ -1,6 +1,6 @@
 "use client"
 
-import { forwardRef, useRef } from "react"
+import { forwardRef, useRef, useState } from "react"
 import type { ComponentProps } from "react"
 import { mergeProps, useLocale, useNumberField } from "react-aria"
 import type { AriaNumberFieldProps } from "react-aria"
@@ -22,6 +22,7 @@ export default forwardRef<HTMLInputElement, NumberProps>(function Number(
   const { errorMessage, label } = props
   const ref = useRef<HTMLInputElement>(null)
   const { locale } = useLocale()
+  const [value, setValue] = useState("")
   const state = useNumberFieldState({ ...props, locale })
   const {
     decrementButtonProps,
@@ -30,9 +31,26 @@ export default forwardRef<HTMLInputElement, NumberProps>(function Number(
     incrementButtonProps,
     inputProps,
     labelProps,
-  } = useNumberField({ ...props, placeholder: " " }, state, ref)
+  } = useNumberField(
+    {
+      ...props,
+      placeholder: " ",
+      formatOptions: { signDisplay: "exceptZero" },
+    },
+    state,
+    ref,
+  )
   const { errorClass, focusWithinProps, inputClass, isFocused, labelClass } =
     useInputProps(!!errorMessage)
+
+  function onChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const newValue = e.currentTarget.value.replace(",", ".")
+    const matches = newValue.match(/\./g)
+
+    if (matches && matches.length > 1) return
+
+    setValue(newValue)
+  }
 
   return (
     <>
@@ -42,6 +60,8 @@ export default forwardRef<HTMLInputElement, NumberProps>(function Number(
         ref={mergeRefs(ref, forwardedRef)}
         {...mergeProps(inputProps, focusWithinProps)}
         name={name}
+        value={value}
+        onChange={onChange}
       />
       <div className="absolute right-0 top-1 flex flex-col" {...groupProps}>
         <Button

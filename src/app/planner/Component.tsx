@@ -189,7 +189,6 @@ export default function Component({ options }: { options: Options }) {
                       </Form>
                     )}
                   </Modal>
-
                   <Button
                     className="text-zinc-400 data-[hovered]:text-white"
                     plain
