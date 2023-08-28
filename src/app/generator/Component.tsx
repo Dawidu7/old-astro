@@ -76,8 +76,8 @@ export default function Component({
   }
 
   return (
-    <div className="flex w-full justify-evenly">
-      <Box className="h-min w-fit">
+    <div className="flex w-full justify-evenly gap-4 text-base max-[560px]:flex-col">
+      <Box className="h-min min-[560px]:w-fit">
         <Form action={addDS}>
           <SearchSelect
             label="Catalog"
@@ -91,7 +91,7 @@ export default function Component({
           <Button type="submit">Add DS</Button>
         </Form>
       </Box>
-      <Box className="h-min w-fit space-y-4">
+      <Box className="h-min space-y-4 min-[560px]:w-fit">
         <Group>
           <Button onPress={save}>Save</Button>
           <Button onPress={() => setDSs([])}>Delete All</Button>
