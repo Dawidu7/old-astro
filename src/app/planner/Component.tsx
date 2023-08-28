@@ -76,10 +76,10 @@ export default function Component({ options }: { options: Options }) {
           )}
         </Modal>
       </Box>
-      <Box className="">
-        <table className="w-full">
+      <Box className="overflow-x-auto">
+        <table className="w-full whitespace-nowrap">
           <thead className="font-semibold">
-            <tr>
+            <tr className="">
               <td>Catalog</td>
               <td>Number</td>
               <td>Constellation</td>
@@ -95,20 +95,32 @@ export default function Component({ options }: { options: Options }) {
           <tbody>
             {rows.map((row, i) => (
               <tr
-                className={clsx("relative", i % 2 === 0 && "bg-zinc-800")}
+                className={clsx("group relative", i % 2 === 0 && "bg-zinc-800")}
                 key={i}
               >
-                <td>{(row.catalog as { name: string }).name}</td>
-                <td>{row.number as string}</td>
-                <td>{(row.constellation as { name: string }).name}</td>
-                <td>{(row.telescope as { name: string }).name}</td>
-                <td>{(row.camera as { name: string }).name}</td>
-                <td>{(row.filter as { name: string }).name}</td>
-                <td>RA {row.ra as string}</td>
-                <td>DEC {row.dec as string}</td>
-                <td>{row.info as string}</td>
-                <td>{(row.angle as { name: string }).name}°</td>
-                <td className="absolute right-0 top-[15%] flex gap-1">
+                <td className="min-w-max">
+                  {(row.catalog as { name: string }).name}
+                </td>
+                <td className="min-w-max">{row.number as string}</td>
+                <td className="min-w-max">
+                  {(row.constellation as { name: string }).name}
+                </td>
+                <td className="min-w-max">
+                  {(row.telescope as { name: string }).name}
+                </td>
+                <td className="min-w-max">
+                  {(row.camera as { name: string }).name}
+                </td>
+                <td className="min-w-max">
+                  {(row.filter as { name: string }).name}
+                </td>
+                <td className="min-w-max">RA {row.ra as string}</td>
+                <td className="min-w-max">DEC {row.dec as string}</td>
+                <td className="min-w-max">{row.info as string}</td>
+                <td className="min-w-max">
+                  {(row.angle as { name: string }).name}°
+                </td>
+                <td className="absolute right-0 top-[15%] hidden gap-1 group-hover:flex xl:flex">
                   <Modal
                     title="Edit Row"
                     trigger={
