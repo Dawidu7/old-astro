@@ -10,7 +10,7 @@ export default function Footer() {
   return (
     <footer
       className={clsx(
-        "fixed bottom-0 w-full bg-zinc-900 py-4 text-center text-4xl font-semibold shadow-[0_-4px_6px_-1px,0_-2px_4px_-2px] shadow-black transition duration-300",
+        "fixed bottom-0 z-40 w-full bg-zinc-900 py-4 text-center text-4xl font-semibold shadow-[0_-4px_6px_-1px,0_-2px_4px_-2px] shadow-black transition duration-300",
         isVisible && "translate-y-full",
       )}
     >

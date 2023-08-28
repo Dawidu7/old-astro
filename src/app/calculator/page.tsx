@@ -9,12 +9,14 @@ export default async function Calculator({ searchParams }: SearchParams) {
   const outputs = getOutputData(searchParams)
 
   return (
-    <Box className="flex max-w-5xl gap-4">
+    <Box className="flex max-w-5xl flex-col gap-4 lg:flex-row">
       <Selects options={data} searchParams={searchParams} />
       <Separator orientation="vertical" />
+      <Separator className="lg:hidden" />
       <div className="flex-1 space-y-4">
-        {outputs.map((output, i) => (
-          <div className="flex justify-between" key={i}>
+        {Object.entries(outputs).map(([name, output], i) => (
+          <div className="flex flex-col justify-between sm:flex-row" key={i}>
+            <h4 className="font-semibold capitalize sm:hidden">{name}:</h4>
             {Object.entries(output).map(([label, value]) => (
               <Input key={label} label={label} value={value} isReadOnly />
             ))}
@@ -93,5 +95,5 @@ function getOutputData(searchParams: Record<string, string | undefined>) {
         : undefined,
   }
 
-  return [camera, telescope, flattReduc, results]
+  return { camera, telescope, flattReduc, results }
 }

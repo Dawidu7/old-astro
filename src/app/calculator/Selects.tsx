@@ -40,9 +40,9 @@ export default function Selects({
   }
 
   return (
-    <ul className="space-y-6">
+    <ul className="flex justify-between lg:flex-col lg:justify-start lg:gap-6">
       {Object.entries(options).map(([name, values]) => (
-        <li className="flex items-center gap-2" key={name}>
+        <li className="flex flex-col items-center gap-2 lg:flex-row" key={name}>
           <SearchSelect
             label={name}
             options={values}
@@ -56,7 +56,10 @@ export default function Selects({
           <Modal
             title={`Add ${name}`}
             trigger={
-              <Button className="px-1 py-0 text-2xl" variant="secondary">
+              <Button
+                className="w-full px-1 py-0 lg:w-fit lg:text-2xl"
+                variant="secondary"
+              >
                 +
               </Button>
             }

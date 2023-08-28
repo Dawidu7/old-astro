@@ -20,7 +20,7 @@ export default function Component({ options }: { options: Options }) {
   }
 
   return (
-    <div className="relative mx-2 w-full max-w-7xl">
+    <div className="relative w-full max-w-7xl">
       <Box className="full absolute bottom-full right-4 w-fit space-x-4 p-1.5 text-sm">
         <Button className="px-2 py-0" variant="secondary">
           Delete All
