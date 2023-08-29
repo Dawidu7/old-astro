@@ -94,6 +94,10 @@ function filterData(
 
 async function getData(app: string | undefined) {
   switch (app) {
+    case "gallery":
+      const image = await db.query.image.findMany()
+
+      return { image }
     case "calculator":
       const [camera, flattReduc, telescope] = await Promise.all([
         db.query.camera.findMany(),

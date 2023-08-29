@@ -10,23 +10,32 @@ import type {
   DateFieldStateOptions,
   DateSegment,
 } from "react-stately"
-import { createCalendar } from "@internationalized/date"
+import { createCalendar, parseDate } from "@internationalized/date"
 import type { CalendarDate } from "@internationalized/date"
 import { useInputProps } from "."
 
-type DateProps = AriaDateFieldProps<CalendarDate> &
-  Omit<DateFieldStateOptions, "locale" | "createCalendar">
+type DateProps = Omit<AriaDateFieldProps<CalendarDate>, "defaultValue"> &
+  Omit<DateFieldStateOptions, "locale" | "createCalendar" | "defaultValue"> & {
+    defaultValue?: Date
+  }
 
 type SegmentProps = {
   segment: DateSegment
   state: DateFieldState
 }
 
-export default function Date(props: DateProps) {
-  const { errorMessage, label } = props
+export default function DateInput({ defaultValue, ...props }: DateProps) {
+  const { errorMessage, label, name } = props
   const ref = useRef<HTMLInputElement>(null)
   const { locale } = useLocale()
-  const state = useDateFieldState({ ...props, locale, createCalendar })
+  const state = useDateFieldState({
+    ...props,
+    locale,
+    createCalendar,
+    defaultValue: defaultValue
+      ? parseDate(new Date(defaultValue!).toISOString().split("T")[0])
+      : undefined,
+  })
   const { errorMessageProps, fieldProps, labelProps } = useDateField(
     props,
     state,
@@ -37,29 +46,39 @@ export default function Date(props: DateProps) {
   )
 
   return (
-    <div
-      className={clsx(
-        "w-full border-b transition duration-300",
-        isFocused ? "border-white" : "border-zinc-400",
+    <div>
+      {name && state.value && (
+        <input
+          type="hidden"
+          data-date
+          name={name}
+          value={state.value.toString()}
+        />
       )}
-    >
-      <label
-        className={clsx(
-          "text-sm transition duration-300",
-          isFocused ? "text-white" : "text-zinc-400",
-        )}
-        {...labelProps}
-      >
-        {label}
-      </label>
       <div
-        className="group flex w-fit gap-1"
-        ref={ref}
-        {...mergeProps(fieldProps, focusWithinProps)}
+        className={clsx(
+          "w-full border-b transition duration-300",
+          isFocused ? "border-white" : "border-zinc-400",
+        )}
       >
-        {state.segments.map((segment, i) => (
-          <Segment key={i} segment={segment} state={state} />
-        ))}
+        <label
+          className={clsx(
+            "text-sm transition duration-300",
+            isFocused ? "text-white" : "text-zinc-400",
+          )}
+          {...labelProps}
+        >
+          {label}
+        </label>
+        <div
+          className="group flex w-fit gap-1"
+          ref={ref}
+          {...mergeProps(fieldProps, focusWithinProps)}
+        >
+          {state.segments.map((segment, i) => (
+            <Segment key={i} segment={segment} state={state} />
+          ))}
+        </div>
       </div>
       {errorMessage && (
         <p className={errorClass} {...errorMessageProps}>

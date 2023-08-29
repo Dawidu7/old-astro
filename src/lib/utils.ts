@@ -1,5 +1,13 @@
 import { saveAs } from "file-saver"
-import { minLength, minValue, number, object, optional, string } from "valibot"
+import {
+  minLength,
+  minValue,
+  number,
+  object,
+  optional,
+  string,
+  date,
+} from "valibot"
 
 export function mergeRefs<T = any>(
   ...refs: Array<React.MutableRefObject<T> | React.LegacyRef<T>>
@@ -67,6 +75,10 @@ export function createSchema(template: Record<string, string>) {
 function getValue(value: string) {
   if (value === "number") {
     return number("Must be a number.", [minValue(0, "Must be >= 0.")])
+  }
+
+  if (value === "date") {
+    return date("Must be a valid date.")
   }
 
   return string([minLength(1, "Must be >= 1 characters long.")])

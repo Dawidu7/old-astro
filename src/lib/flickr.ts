@@ -29,7 +29,7 @@ export async function getImages() {
 
       return {
         url: source,
-        title: image.title,
+        name: image.title,
         width,
         height,
       }

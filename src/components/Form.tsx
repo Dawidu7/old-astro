@@ -87,8 +87,11 @@ function getFormChildren(
 }
 
 function getFormData(elements: HTMLFormControlsCollection) {
+  console.log(elements)
   return Array.from(elements).reduce<Record<string, unknown>>(
     (acc, element) => {
+      console.log(element)
+
       if (!element.hasAttribute("name")) return acc
 
       const { inputMode, name, value } = element as HTMLInputElement
@@ -101,6 +104,13 @@ function getFormData(elements: HTMLFormControlsCollection) {
         return {
           ...acc,
           [name]: parsedValue,
+        }
+      }
+
+      if (element.hasAttribute("data-date")) {
+        return {
+          ...acc,
+          [name]: new Date(value),
         }
       }
 
@@ -137,6 +147,10 @@ function getFormSchema(children: React.ReactNode): Record<string, string> {
 
     if (props.type === "number") {
       return { ...acc, [props.name]: "number" }
+    }
+
+    if (props.type === "date") {
+      return { ...acc, [props.name]: "date" }
     }
 
     if (props.options) {
