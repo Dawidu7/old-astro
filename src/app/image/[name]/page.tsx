@@ -15,10 +15,10 @@ export default async function ImagePage({ params }: Params) {
 
   if (!image) return "No image found."
 
-  const flickrImage = ((await getImages()) || []).find(
+  const flickrImage = (await getImages()).find(
     img => img.url === image.imageUrl,
   )
-  const flickrAnnotation = ((await getImages()) || []).find(
+  const flickrAnnotation = (await getImages()).find(
     img => img.url === image.annotationUrl,
   )
 

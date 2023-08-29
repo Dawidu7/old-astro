@@ -7,8 +7,6 @@ export default async function Home() {
   const images = await db.query.image.findMany()
   const flickrImages = await getImages()
 
-  if (!images || !flickrImages) return "No images found."
-
   return (
     <div className="grid gap-4 grid-auto-fit-md">
       {images.map(image => (

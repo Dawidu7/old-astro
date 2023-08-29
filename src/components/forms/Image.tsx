@@ -8,8 +8,6 @@ import { getImages } from "~/lib/flickr"
 export default async function Image({ searchParams }: SearchParams) {
   const images = await getImages()
 
-  if (!images) return "No images found."
-
   const defaultImage = searchParams.id
     ? (
         await db
