@@ -17,6 +17,8 @@ export async function getImages() {
     getURL("search", { user_id: process.env.FLICKR_USER_ID! }),
   )
 
+  if (!data) return null
+
   const images = await Promise.all(
     data.photos.photo.map(async (image: any) => {
       const { data } = await axios.get(
