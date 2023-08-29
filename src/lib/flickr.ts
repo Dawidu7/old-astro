@@ -3,7 +3,7 @@
 import axios from "axios"
 
 function getURL(method: string, params?: Record<string, string>) {
-  return `https://www.flickr.com/services/rest/${method}?${new URLSearchParams({
+  return `https://www.flickr.com/services/rest?${new URLSearchParams({
     api_key: process.env.FLICKR_API_KEY!,
     format: "json",
     method: `flickr.photos.${method}`,
@@ -25,7 +25,7 @@ export async function getImages() {
 
       const { source, width, height } = data.sizes.size.filter(
         ({ label }: { label: string }) => label === "Original",
-      )
+      )[0]
 
       return {
         url: source,
