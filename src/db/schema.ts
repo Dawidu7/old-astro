@@ -1,5 +1,6 @@
 import type { InferModel } from "drizzle-orm"
 import {
+  date,
   int,
   float,
   mysqlEnum,
@@ -12,6 +13,23 @@ import {
 export const admin = mysqlTable("admin", {
   id: serial("id").primaryKey(),
   password: varchar("password", { length: 60 }).notNull(),
+})
+
+export const image = mysqlTable("image", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 255 }).notNull().unique(),
+  imageUrl: varchar("imageUrl", { length: 255 }).notNull(),
+  date: date("date").notNull(),
+  optic: varchar("optic", { length: 255 }).notNull(),
+  camera: varchar("camera", { length: 255 }).notNull(),
+  mount: varchar("mount", { length: 255 }).notNull(),
+  filters: varchar("filters", { length: 255 }).notNull(),
+  sqml: varchar("sqml", { length: 255 }).notNull(),
+  exposureDetails: varchar("exposureDetails", { length: 255 }).notNull(),
+  acquisition: varchar("acquisition", { length: 255 }).notNull(),
+  processing: varchar("processing", { length: 255 }).notNull(),
+  info: varchar("info", { length: 255 }).notNull(),
+  annotationUrl: varchar("annotationUrl", { length: 255 }).notNull(),
 })
 
 export const camera = mysqlTable("camera", {

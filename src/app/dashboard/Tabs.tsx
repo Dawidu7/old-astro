@@ -11,7 +11,7 @@ export default function Tabs() {
   return (
     <nav className="min-w-[95px]">
       <ul className="space-y-4 capitalize">
-        {["calculator", "generator", "planner"].map(link => (
+        {["gallery", "calculator", "generator", "planner"].map(link => (
           <li key={link}>
             <Link
               className={clsx(

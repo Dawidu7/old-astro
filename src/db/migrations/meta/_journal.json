@@ -15,6 +15,13 @@
       "when": 1692869416313,
       "tag": "0001_daffy_chimera",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1693278551932,
+      "tag": "0002_friendly_hercules",
+      "breakpoints": true
     }
   ]
 }
