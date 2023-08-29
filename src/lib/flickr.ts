@@ -1,6 +1,9 @@
 "use server"
 
 import axios from "axios"
+import dotenv from "dotenv"
+
+dotenv.config({ path: ".env.local" })
 
 function getURL(method: string, params?: Record<string, string>) {
   return `https://www.flickr.com/services/rest?${new URLSearchParams({
