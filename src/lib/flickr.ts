@@ -19,8 +19,10 @@ export async function getImages() {
 
   if (!data) return null
 
+  console.log(data)
+
   const images = await Promise.all(
-    data.photos.photo.map(async (image: any) => {
+    data.photos.photo?.map(async (image: any) => {
       const { data } = await axios.get(
         getURL("getSizes", { photo_id: image.id }),
       )
