@@ -61,7 +61,7 @@ export default function Navbar({
               className={
                 pathname.startsWith(route)
                   ? "font-semibold text-white"
-                  : undefined
+                  : "data-[hovered]:text-[#375982]"
               }
               href={route}
             >
@@ -73,7 +73,10 @@ export default function Navbar({
           <Modal
             title="Confirm Logout"
             trigger={
-              <Button className="text-zinc-400 data-[hovered]:text-white" plain>
+              <Button
+                className="text-zinc-400 data-[hovered]:text-[#375982]"
+                plain
+              >
                 Logout
               </Button>
             }
@@ -130,7 +133,7 @@ export default function Navbar({
       >
         <li>
           <Button
-            className="text-zinc-400 data-[hovered]:text-white md:hidden"
+            className="text-zinc-400 data-[hovered]:text-[#375982] md:hidden"
             onPress={() => setOpen(false)}
             plain
           >
