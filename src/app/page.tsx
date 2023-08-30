@@ -17,10 +17,14 @@ export default async function Home() {
         >
           <Image
             className="aspect-square"
-            src={image.imageUrl}
+            src={image.thumbnailUrl}
             alt={image.name}
-            width={flickrImages.find(img => img.url === image.imageUrl).width}
-            height={flickrImages.find(img => img.url === image.imageUrl).height}
+            width={
+              flickrImages.find(img => img.url === image.thumbnailUrl).width
+            }
+            height={
+              flickrImages.find(img => img.url === image.thumbnailUrl).height
+            }
             priority
             sizes="(max-width: 575px) 100vw, (max-width: 847px) 50vw, (max-width: 1119px) 33vw, (max-width: 1391px) 25vw, 17vw"
           />

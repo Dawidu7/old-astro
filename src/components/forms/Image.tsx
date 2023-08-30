@@ -21,12 +21,14 @@ export default async function Image({ searchParams }: SearchParams) {
     ? {
         image: images.find(img => img.url === defaultImage?.imageUrl),
         annotation: images.find(img => img.url === defaultImage?.annotationUrl),
+        thumbnail: images.find(img => img.url === defaultImage?.thumbnailUrl),
       }
     : null
 
   async function create({
     imageUrl,
     annotationUrl,
+    thumbnailUrl,
     ...formData
   }: Record<string, unknown>) {
     "use server"
@@ -38,6 +40,8 @@ export default async function Image({ searchParams }: SearchParams) {
       imageUrl: imageUrl.url,
       // @ts-expect-error
       annotationUrl: annotationUrl.url,
+      // @ts-expect-error
+      thumbnailUrl: thumbnailUrl.url,
     })
 
     revalidatePath("/dashboard")
@@ -112,6 +116,12 @@ export default async function Image({ searchParams }: SearchParams) {
         options={images}
         name="annotationUrl"
         defaultValue={defaultImages?.annotation}
+      />
+      <SearchSelect
+        label="Thumbnail"
+        options={images}
+        name="thumbnailUrl"
+        defaultValue={defaultImages?.thumbnail}
       />
       <Group>
         {defaultImage && (
