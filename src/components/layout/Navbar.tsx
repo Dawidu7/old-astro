@@ -46,6 +46,7 @@ export default function Navbar({
   useEffect(() => setOpen(false), [pathname])
 
   const links = [
+    { route: "/", text: "Gallery" },
     { route: "/calculator", text: "Calculator" },
     { route: "/generator", text: "Generator" },
     { route: "/planner", text: "Planner" },
