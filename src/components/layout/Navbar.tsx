@@ -60,7 +60,7 @@ export default function Navbar({
           <li key={route}>
             <Link
               className={
-                pathname.startsWith(route)
+                pathname.split("/")[1] === route.split("/")[1]
                   ? "font-semibold text-white"
                   : "data-[hovered]:text-[#375982]"
               }
