@@ -1,0 +1,1 @@
+ALTER TABLE `image` ADD `thumbnailUrl` varchar(255) NOT NULL;

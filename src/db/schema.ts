@@ -30,6 +30,7 @@ export const image = mysqlTable("image", {
   processing: varchar("processing", { length: 255 }).notNull(),
   info: varchar("info", { length: 255 }).notNull(),
   annotationUrl: varchar("annotationUrl", { length: 255 }).notNull(),
+  thumbnailUrl: varchar("thumbnailUrl", { length: 255 }).notNull(),
 })
 
 export const camera = mysqlTable("camera", {
