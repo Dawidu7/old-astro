@@ -23,7 +23,7 @@ export default async function ImagePage({ params }: Params) {
   )
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex max-w-7xl flex-col gap-4">
       <Box>
         <h2 className="text-center text-4xl font-semibold">{image.name}</h2>
       </Box>
@@ -59,7 +59,7 @@ export default async function ImagePage({ params }: Params) {
           <Modal
             full
             trigger={
-              <Button plain>
+              <Button className="w-1/2" plain>
                 <Image
                   src={image.annotationUrl}
                   alt={image.name}
@@ -70,6 +70,7 @@ export default async function ImagePage({ params }: Params) {
             }
           >
             <Image
+              className="max-w-2xl"
               src={image.annotationUrl}
               alt={image.name}
               width={flickrAnnotation.width}
