@@ -41,7 +41,7 @@ export default function Navbar({
       intersectionObserver.disconnect()
       resizeObserber.disconnect()
     }
-  }, [])
+  }, [setVisible])
 
   useEffect(() => setOpen(false), [pathname])
 
